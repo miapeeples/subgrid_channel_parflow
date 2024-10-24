@@ -1,3 +1,6 @@
+This fork corresponds with an altered version of ParFlow used in a submitted publication. It also includes Example_Run_File.ipynb which is an example runscript including all model settings and parameter values used in the study.
+
+
 # ParFlow
 
 ![ParFlow CI Test](https://github.com/parflow/parflow/workflows/ParFlow%20CI%20Test/badge.svg)
