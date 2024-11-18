@@ -52,6 +52,7 @@ typedef void InstanceXtra;
  * Define macros for function evaluation
  *---------------------------------------------------------------------*/
 #define RPMean(a, b, c, d)   UpstreamMean(a, b, c, d)
+#define PMean(a, b)    HarmonicMean(a, b)
 
 /*-------------------------------------------------------------------------
  * OverlandFlowEval
@@ -175,12 +176,16 @@ void    OverlandFlowEvalKin(
                          pfmax((pp[ip]), 0.0),
                          pfmax((pp[ippsy]), 0.0));
 
-        Wc_x = RPMean(-Sf_x, 0.0,
+        Wc_x = PMean(
                          pfmax((wcx_dat[io]), 0.0),
                          pfmax((wcx_dat[iop1]), 0.0));
-        Wc_y = RPMean(-Sf_y, 0.0,
+        if (wcx_dat[iop1] > dx)
+        {Wc_x = wcx_dat[io];}
+    
+
+        Wc_y = PMean(
                          pfmax((wcy_dat[io]), 0.0),
-                         pfmax((wcy_dat[iopsy]), 0.0));
+                         pfmax((wcy_dat[iopsy]), 0.0)); 
 
         qx_v[io] = -(Sf_x / (RPowerR(fabs(Sf_mag), 0.5) * mann_dat[io]))
                             * RPowerR(Press_x, (5.0 / 3.0))
@@ -309,10 +314,13 @@ void    OverlandFlowEvalKin(
                          pfmax((pp[ip]), 0.0),
                          pfmax((pp[ippsy]), 0.0));
     
-        Wc_x = RPMean(-Sf_x, 0.0,
+        Wc_x = PMean(
                          pfmax((wcx_dat[io]), 0.0),
                          pfmax((wcx_dat[iop1]), 0.0));
-        Wc_y = RPMean(-Sf_y, 0.0,
+        if (wcx_dat[iop1] > dx)
+        {Wc_x = wcx_dat[io];}
+    
+        Wc_y = PMean(
                          pfmax((wcy_dat[io]), 0.0),
                          pfmax((wcy_dat[iopsy]), 0.0));
 
