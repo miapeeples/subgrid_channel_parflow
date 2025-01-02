@@ -1,5 +1,7 @@
 This fork corresponds with an altered version of ParFlow used in a submitted publication. 
+
 This fork includes Example_Run_File.ipynb which is an example runscript including all model settings and parameter values used in that study.
+
 It also includes Example_post-processing.ipynb which alters "pftools/python/parflow/tools/hydrology.py" in the master ParFlow github to account for new subgrid channel width, allowing for "calculate_overland_flow_grid" to be compatible with the subgrid channel formulation.
 
 
