@@ -1,4 +1,4 @@
-This fork corresponds with an altered version of ParFlow [this publication]([https://parflow.readthedocs.io/en/latest/index.html](https://www.frontiersin.org/journals/water/articles/10.3389/frwa.2024.1520913/full). 
+This fork corresponds with an altered version of ParFlow [this publication](https://www.frontiersin.org/journals/water/articles/10.3389/frwa.2024.1520913/full). 
 
 This fork includes Example_Run_File.ipynb which is an example runscript including all model settings and parameter values used in that study.
 
