@@ -159,7 +159,7 @@ void    OverlandFlowEval(
               xdir = 0.0;
 
             q_v[ii + 1] = xdir * (RPowerR(fabs(sx_dat[io + ii]), 0.5) / mann_dat[io + ii])
-                                   * RPowerR(pfmax((pp[ip]), 0.0), (5.0 / 3.0))*RPowerR(dx*wcx_dat[io]/(2*pp[ip]*dx+RPowerR(wcx_dat[io],2.0)),(2.0/3.0));
+                                   * RPowerR(pfmax((pp[ip]), 0.0), (5.0 / 3.0))*RPowerR(dy*wcx_dat[io]/(2*pp[ip]*dy+RPowerR(wcx_dat[io],2.0)),(2.0/3.0));
           }
         }
 
@@ -189,7 +189,7 @@ void    OverlandFlowEval(
               ydir = 0.0;
 
             q_v[ii + 1] = ydir * (RPowerR(fabs(sy_dat[io + step]), 0.5) / mann_dat[io + step])
-                                    * RPowerR(pfmax((pp[ip]), 0.0), (5.0 / 3.0))*RPowerR(dy*wcy_dat[io]/(2*pp[ip]*dy+RPowerR(wcy_dat[io],2.0)),(2.0/3.0));
+                                    * RPowerR(pfmax((pp[ip]), 0.0), (5.0 / 3.0))*RPowerR(dx*wcy_dat[io]/(2*pp[ip]*dx+RPowerR(wcy_dat[io],2.0)),(2.0/3.0));
           }
         }
 
@@ -237,7 +237,7 @@ void    OverlandFlowEval(
             else
               xdir = 0.0;
 
-            q_v[ii + 1] = xdir * (RPowerR(fabs(sx_dat[io + ii]), 0.5) / mann_dat[io + ii]) * RPowerR(pfmax((pp[ip]), 0.0), (5.0 / 3.0))*RPowerR(dx*wcx_dat[io]/(2*pp[ip]*dx+RPowerR(wcx_dat[io],2.0)),(2.0/3.0));
+            q_v[ii + 1] = xdir * (RPowerR(fabs(sx_dat[io + ii]), 0.5) / mann_dat[io + ii]) * RPowerR(pfmax((pp[ip]), 0.0), (5.0 / 3.0))*RPowerR(dy*wcx_dat[io]/(2*pp[ip]*dy+RPowerR(wcx_dat[io],2.0)),(2.0/3.0));
           }
         }
         qx_v[io] = q_v[1];
@@ -266,7 +266,7 @@ void    OverlandFlowEval(
             else
               ydir = 0.0;
 
-            q_v[ii + 1] = ydir * (RPowerR(fabs(sy_dat[io + step]), 0.5) / mann_dat[io + step]) * RPowerR(pfmax((pp[ip]), 0.0), (5.0 / 3.0))*RPowerR(dy*wcy_dat[io]/(2*pp[ip]*dy+RPowerR(wcy_dat[io],2.0)),(2.0/3.0));
+            q_v[ii + 1] = ydir * (RPowerR(fabs(sy_dat[io + step]), 0.5) / mann_dat[io + step]) * RPowerR(pfmax((pp[ip]), 0.0), (5.0 / 3.0))*RPowerR(dx*wcy_dat[io]/(2*pp[ip]*dx+RPowerR(wcy_dat[io],2.0)),(2.0/3.0));
           }
         }
         qy_v[io] = q_v[1];
@@ -307,9 +307,9 @@ void    OverlandFlowEval(
         else
           xdir = 0.0;
 
-        q_mid = xdir * (RPowerR(fabs(sx_dat[io]), 0.5) / mann_dat[io]) * RPowerR(dx,(2.0/3.0)) * RPowerR(wcx_dat[io],(2.0/3.0)) *
-                                ((5.0/3.0)*RPowerR(pfmax((pp[ip]/(2*pp[ip]*dx+RPowerR(wcx_dat[io],2.0))), 0.0), (2.0 / 3.0)) - 
-                                (4.0*dx/3.0)*RPowerR(pfmax((pp[ip]/(2*pp[ip]*dx+RPowerR(wcx_dat[io],2.0))), 0.0), (5.0 / 3.0)));
+        q_mid = xdir * (RPowerR(fabs(sx_dat[io]), 0.5) / mann_dat[io]) * RPowerR(dy,(2.0/3.0)) * RPowerR(wcx_dat[io],(2.0/3.0)) *
+                                ((5.0/3.0)*RPowerR(pfmax((pp[ip]/(2*pp[ip]*dy+RPowerR(wcx_dat[io],2.0))), 0.0), (2.0 / 3.0)) - 
+                                (4.0*dy/3.0)*RPowerR(pfmax((pp[ip]/(2*pp[ip]*dy+RPowerR(wcx_dat[io],2.0))), 0.0), (5.0 / 3.0)));
         /* compute derivs of kw and ke - NOTE: io is for current cell */
         kw_v[io] = -pfmax(-q_mid, 0.0);
         ke_v[io] = pfmax(q_mid, 0.0);
@@ -324,8 +324,8 @@ void    OverlandFlowEval(
           ydir = 0.0;
 
         q_mid = ydir * (RPowerR(fabs(sy_dat[io]), 0.5) / mann_dat[io]) * RPowerR(wcy_dat[io], (2.0 / 3.0)) * 
-                              RPowerR(dy,(2.0/3.0)) * ((5.0/3.0)*RPowerR(pfmax((pp[ip]/(2*pp[ip]*dy+RPowerR(wcy_dat[io],2.0))), 0.0), (2.0 / 3.0)) - 
-                              (4.0*dy/3.0)*RPowerR(pfmax((pp[ip]/(2*pp[ip]*dy+RPowerR(wcy_dat[io],2.0))), 0.0), (5.0 / 3.0)));
+                              RPowerR(dx,(2.0/3.0)) * ((5.0/3.0)*RPowerR(pfmax((pp[ip]/(2*pp[ip]*dx+RPowerR(wcy_dat[io],2.0))), 0.0), (2.0 / 3.0)) - 
+                              (4.0*dx/3.0)*RPowerR(pfmax((pp[ip]/(2*pp[ip]*dx+RPowerR(wcy_dat[io],2.0))), 0.0), (5.0 / 3.0)));
         /* compute derivs of ks and kn - NOTE: io is for current cell */
         ks_v[io] = -pfmax(-q_mid, 0.0);
         kn_v[io] = pfmax(q_mid, 0.0);
@@ -361,8 +361,8 @@ void    OverlandFlowEval(
           xdir = 0.0;
 
         q_mid = xdir * (RPowerR(fabs(sx_dat[io]), 0.5) / mann_dat[io]) * RPowerR(wcx_dat[io], (2.0 / 3.0))  
-                                * RPowerR(dx,(2.0/3.0)) * ((5.0/3.0)*RPowerR(pfmax((pp[ip]/(2*pp[ip]*dx+RPowerR(wcx_dat[io],2.0))), 0.0), (2.0 / 3.0)) - 
-                                (4.0*dx/3.0)*RPowerR(pfmax((pp[ip]/(2*pp[ip]*dx+RPowerR(wcx_dat[io],2.0))), 0.0), (5.0 / 3.0)));
+                                * RPowerR(dy,(2.0/3.0)) * ((5.0/3.0)*RPowerR(pfmax((pp[ip]/(2*pp[ip]*dy+RPowerR(wcx_dat[io],2.0))), 0.0), (2.0 / 3.0)) - 
+                                (4.0*dy/3.0)*RPowerR(pfmax((pp[ip]/(2*pp[ip]*dy+RPowerR(wcx_dat[io],2.0))), 0.0), (5.0 / 3.0)));
         qx_v[io] = q_mid;
         /* compute derivs of kw and ke - NOTE: io is for current cell */
         kw_v[io] = -pfmax(-q_mid, 0.0);
@@ -378,8 +378,8 @@ void    OverlandFlowEval(
           ydir = 0.0;
 
         q_mid = ydir * (RPowerR(fabs(sy_dat[io]), 0.5) / mann_dat[io]) * RPowerR(wcy_dat[io], (2.0 / 3.0)) 
-                                * RPowerR(dy,(2.0/3.0)) * ((5.0/3.0)*RPowerR(pfmax((pp[ip]/(2*pp[ip]*dy+RPowerR(wcy_dat[io],2.0))), 0.0), (2.0 / 3.0)) - 
-                                (4.0*dy/3.0)*RPowerR(pfmax((pp[ip]/(2*pp[ip]*dy+RPowerR(wcy_dat[io],2.0))), 0.0), (5.0 / 3.0)));
+                                * RPowerR(dx,(2.0/3.0)) * ((5.0/3.0)*RPowerR(pfmax((pp[ip]/(2*pp[ip]*dx+RPowerR(wcy_dat[io],2.0))), 0.0), (2.0 / 3.0)) - 
+                                (4.0*dx/3.0)*RPowerR(pfmax((pp[ip]/(2*pp[ip]*dx+RPowerR(wcy_dat[io],2.0))), 0.0), (5.0 / 3.0)));
         qy_v[io] = q_mid;
         /* compute derivs of ks and kn - NOTE: io is for current cell */
         ks_v[io] = -pfmax(-q_mid, 0.0);
