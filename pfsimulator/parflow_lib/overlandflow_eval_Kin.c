@@ -188,10 +188,10 @@ void    OverlandFlowEvalKin(
 
         qx_v[io] = -(Sf_x / (RPowerR(fabs(Sf_mag), 0.5) * mann_dat[io]))
                             * RPowerR(Press_x, (5.0 / 3.0))
-                            * RPowerR(dx*Wc_x/(2*Press_x*dx+RPowerR(Wc_x,2.0)),(2.0/3.0));
+                            * RPowerR(dy*Wc_x/(2*Press_x*dy+RPowerR(Wc_x,2.0)),(2.0/3.0));
         qy_v[io] = -(Sf_y / (RPowerR(fabs(Sf_mag), 0.5)
                             * mann_dat[io])) * RPowerR(Press_y, (5.0 / 3.0))
-                            * RPowerR(dy*Wc_y/(2*Press_y*dy+RPowerR(Wc_y,2.0)),(2.0/3.0));
+                            * RPowerR(dx*Wc_y/(2*Press_y*dx+RPowerR(Wc_y,2.0)),(2.0/3.0));
       }
       
       //fix for lower x boundary
@@ -213,7 +213,7 @@ void    OverlandFlowEvalKin(
             io = SubvectorEltIndex(sx_sub, i, j, 0);
             Wc_x = pfmax((wcx_dat[io]), 0.0);
             qx_v[io - 1] = -(Sf_x / (RPowerR(fabs(Sf_mag), 0.5) * mann_dat[io])) 
-                            * RPowerR(Press_x, (5.0 / 3.0))* RPowerR(dx*Wc_x/(2*Press_x*dx+RPowerR(Wc_x,2.0)),(2.0/3.0));
+                            * RPowerR(Press_x, (5.0 / 3.0))* RPowerR(dy*Wc_x/(2*Press_x*dy+RPowerR(Wc_x,2.0)),(2.0/3.0));
           }
         }
       }
@@ -237,7 +237,7 @@ void    OverlandFlowEvalKin(
             io = SubvectorEltIndex(sx_sub, i, j, 0);
             Wc_y = pfmax((wcy_dat[io]), 0.0);
             qy_v[io - sy_v] = -(Sf_y / (RPowerR(fabs(Sf_mag), 0.5) * mann_dat[io])) 
-                           * RPowerR(Press_y, (5.0 / 3.0))* RPowerR(dy*Wc_y/(2*Press_y*dy+RPowerR(Wc_y,2.0)),(2.0/3.0));
+                           * RPowerR(Press_y, (5.0 / 3.0))* RPowerR(dx*Wc_y/(2*Press_y*dx+RPowerR(Wc_y,2.0)),(2.0/3.0));
           }
         }
       }
@@ -323,14 +323,14 @@ void    OverlandFlowEvalKin(
                          pfmax((wcy_dat[iopsy]), 0.0));
 
         qx_temp = -(Sf_x / (RPowerR(fabs(Sf_mag), 0.5) * mann_dat[io]))
-                         *RPowerR(Wc_x, (2.0 / 3.0))  * RPowerR(dx,(2.0/3.0)) *    
-                         ((5.0/3.0)*RPowerR(pfmax((Press_x/(2*Press_x*dx+RPowerR(Wc_x,2.0))), 0.0), (2.0 / 3.0)) 
-                         -(4.0*dx/3.0)*RPowerR(pfmax((Press_x/(2*Press_x*dx
+                         *RPowerR(Wc_x, (2.0 / 3.0))  * RPowerR(dy,(2.0/3.0)) *    
+                         ((5.0/3.0)*RPowerR(pfmax((Press_x/(2*Press_x*dy+RPowerR(Wc_x,2.0))), 0.0), (2.0 / 3.0)) 
+                         -(4.0*dy/3.0)*RPowerR(pfmax((Press_x/(2*Press_x*dy
                          +RPowerR(Wc_x,2.0))), 0.0), (5.0 / 3.0)));
         qy_temp = -(Sf_y / (RPowerR(fabs(Sf_mag), 0.5) * mann_dat[io])) * 
-                         RPowerR(Wc_y, (2.0 / 3.0))  * RPowerR(dy,(2.0/3.0)) *    
-                         ((5.0/3.0)*RPowerR(pfmax((Press_y/(2*Press_y*dy+RPowerR(Wc_y,2.0))), 0.0), (2.0 / 3.0)) 
-                         -(4.0*dy/3.0)*RPowerR(pfmax((Press_y/(2*Press_y*dy
+                         RPowerR(Wc_y, (2.0 / 3.0))  * RPowerR(dx,(2.0/3.0)) *    
+                         ((5.0/3.0)*RPowerR(pfmax((Press_y/(2*Press_y*dx+RPowerR(Wc_y,2.0))), 0.0), (2.0 / 3.0)) 
+                         -(4.0*dy/3.0)*RPowerR(pfmax((Press_y/(2*Press_y*dx
                          +RPowerR(Wc_y,2.0))), 0.0), (5.0 / 3.0)));
 
         ke_v[io] = pfmax(qx_temp, 0);
@@ -359,8 +359,8 @@ void    OverlandFlowEvalKin(
             Wc_x = pfmax((wcx_dat[io]), 0.0);
             qx_temp = -(Sf_x / (RPowerR(fabs(Sf_mag), 0.5) * mann_dat[io])) 
                               *RPowerR(Wc_x, (2.0 / 3.0))  * RPowerR(dx,(2.0/3.0)) *    
-                              ((5.0/3.0)*RPowerR(pfmax((Press_x/(2*Press_x*dx+RPowerR(Wc_x,2.0))), 0.0), (2.0 / 3.0)) 
-                              -(4.0*dx/3.0)*RPowerR(pfmax((Press_x/(2*Press_x*dx
+                              ((5.0/3.0)*RPowerR(pfmax((Press_x/(2*Press_x*dy+RPowerR(Wc_x,2.0))), 0.0), (2.0 / 3.0)) 
+                              -(4.0*dy/3.0)*RPowerR(pfmax((Press_x/(2*Press_x*dy
                               +RPowerR(Wc_x,2.0))), 0.0), (5.0 / 3.0)));
 
             kw_v[io] = qx_temp;
@@ -388,9 +388,9 @@ void    OverlandFlowEvalKin(
             io = SubvectorEltIndex(sx_sub, i, j, 0);
             Wc_y = pfmax((wcy_dat[io]), 0.0);
             qy_temp = -(Sf_y / (RPowerR(fabs(Sf_mag), 0.5) * mann_dat[io])) 
-                          *RPowerR(Wc_y, (2.0 / 3.0))  * RPowerR(dy,(2.0/3.0)) *    
-                          ((5.0/3.0)*RPowerR(pfmax((Press_y/(2*Press_y*dy+RPowerR(Wc_y,2.0))), 0.0), (2.0 / 3.0)) 
-                          -(4.0*dy/3.0)*RPowerR(pfmax((Press_y/(2*Press_y*dy
+                          *RPowerR(Wc_y, (2.0 / 3.0))  * RPowerR(dx,(2.0/3.0)) *    
+                          ((5.0/3.0)*RPowerR(pfmax((Press_y/(2*Press_y*dx+RPowerR(Wc_y,2.0))), 0.0), (2.0 / 3.0)) 
+                          -(4.0*dy/3.0)*RPowerR(pfmax((Press_y/(2*Press_y*dx
                            +RPowerR(Wc_y,2.0))), 0.0), (5.0 / 3.0)));
 
             ks_v[io] = qy_temp;
